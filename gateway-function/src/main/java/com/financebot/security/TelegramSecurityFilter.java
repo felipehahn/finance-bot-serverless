@@ -27,7 +27,7 @@ public class TelegramSecurityFilter {
     }
 
     private boolean telegramTokenIsValid(String token) {
-        return MessageDigest.isEqual(
+        return token != null && MessageDigest.isEqual(
                 secretToken.getBytes(StandardCharsets.UTF_8),
                 token.getBytes(StandardCharsets.UTF_8)
         );

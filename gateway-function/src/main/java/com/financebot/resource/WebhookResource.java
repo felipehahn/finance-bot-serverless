@@ -1,8 +1,7 @@
 package com.financebot.resource;
 
-import com.financebot.dto.TelegramUpdateDTO;
-import com.financebot.gateway.security.TelegramSecurityValidator;
-import com.financebot.gateway.service.TelegramWebhookService;
+import com.financebot.core.dto.telegram.TelegramUpdateDTO;
+import com.financebot.service.TelegramWebhookService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

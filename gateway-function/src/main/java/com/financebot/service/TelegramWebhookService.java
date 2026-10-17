@@ -1,6 +1,10 @@
 package com.financebot.service;
 
-import com.financebot.dto.TelegramUpdateDTO;
+import com.financebot.core.client.TelegramClient;
+import com.financebot.core.dto.telegram.TelegramCallbackQueryDTO;
+import com.financebot.core.dto.telegram.TelegramMessageDTO;
+import com.financebot.core.dto.telegram.TelegramUpdateDTO;
+import com.financebot.core.event.TelegramCommandEvent;
 import com.financebot.idempotency.IdempotencyService;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -52,7 +56,7 @@ public class TelegramWebhookService {
                 message.messageId()
         );
 
-        publisher.publishEvent(event);
+        processorInvoker.invoke(event);
     }
 
     private void handleCallback(TelegramUpdateDTO update) {
@@ -67,7 +71,7 @@ public class TelegramWebhookService {
                 callback.message().messageId()
         );
 
-        publisher.publishEvent(event);
+        processorInvoker.invoke(event);
         telegramClient.answerCallback(callback.id());
     }
 }
