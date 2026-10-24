@@ -53,7 +53,8 @@ public class TelegramClient {
 
             if (response.statusCode() / 100 != 2)
                 throw new IllegalStateException(
-                        "Telegram " + path + " falhou: " + response.statusCode());
+                        "Telegram " + path + " falhou: " + response.statusCode()
+                                + " - " + response.body());
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Erro ao serializar " + path, e);
         } catch (IOException e) {
