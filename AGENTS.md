@@ -14,7 +14,19 @@ Run these from the repository root with JDK 21 and Maven installed:
 - `mvn -f gateway-function/pom.xml quarkus:dev`: run the webhook locally with Quarkus live reload.
 - `docker compose up -d redis`: start the Redis instance expected at `localhost:6379`.
 
-On Windows, run `mvnw.cmd` from `gateway-function/` instead of `mvn`. Configure the processor function and Telegram settings for local runs; dummy test values are in `gateway-function/src/test/resources/application.properties`.
+On Windows, `gateway-function/mvnw.cmd` can replace installed Maven for gateway commands. Configure the processor function and Telegram settings for local runs; dummy test values are in `gateway-function/src/test/resources/application.properties`.
+
+### Production Lambda Build (PowerShell)
+
+From the repository root, use JDK 21, Maven, and a running Docker daemon. Install the shared module, run applicable gateway tests, then build the Linux native executable:
+
+```powershell
+mvn -f finance-core/pom.xml install '-DskipTests'
+mvn -f gateway-function/pom.xml test
+mvn -f gateway-function/pom.xml package '-Dnative' '-DskipTests' '-Dquarkus.native.container-build=true' '-Dquarkus.native.march=x86-64-v2'
+```
+
+Upload `gateway-function/target/function.zip` to an x86_64 Lambda using the `provided.al2023` runtime. The ZIP contains the `bootstrap` executable; set `DISABLE_SIGNAL_HANDLERS=true` in the Lambda environment. Keep the PowerShell `-D` arguments quoted so Maven receives them intact.
 
 ## Coding Style & Naming Conventions
 
