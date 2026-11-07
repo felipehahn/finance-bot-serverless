@@ -1,0 +1,6 @@
+package com.financebot.transactionservice.session;
+
+public enum UserSessionStep {
+    INITIAL_STEP, WAITING_AMOUNT, WAITING_DESCRIPTION, WAITING_DATE, WAITING_ID, WAITING_REPORT_TYPE,
+    WAITING_REPORT_PERIOD, WAITING_REPORT_DATE
+}
